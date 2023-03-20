@@ -1,0 +1,13 @@
+{
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "prettier"],
+  "root": true,
+  "ignorePatterns": ["src/__tests__/*", "build/server.js"],
+  "rules": {
+    "no-console": "off",
+    "prettier/prettier": 2,
+    "no-return-await": "off",
+    "class-methods-use-this": "off"
+  }
+}

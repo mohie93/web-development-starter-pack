@@ -1,0 +1,93 @@
+# Happy Coding!
+service: sample-service
+
+# Latest
+frameworkVersion: "3"
+
+# Adapt auto loading for .env content
+useDotenv: true
+
+# Adapt sequential variables loading
+variablesResolutionMode: 20210326
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  lambdaHashingVersion: 20201221
+  stage: ${opt:stage, 'development'}
+  timeout: 30
+  memorySize: 1024
+  iam:
+    role: ${env:AWS_ROLE}
+  region: ${opt:region, 'ap-southeast-1'}
+  profile: ${env:AWS_SERVERLESS_PROFILE}
+  vpc:
+    securityGroupIds:
+      - ${env:AWS_SECURITY_GROUP} # Required to connect to remote DB on AWS
+    subnetIds:
+      - ${env:AWS_PRIVATE_SUBNET_A} # Required to connect to remote DB on AWS
+      - ${env:AWS_PRIVATE_SUBNET_B} # Required to connect to remote DB on AWS
+      - ${env:AWS_PRIVATE_SUBNET_C} # Required to connect to remote DB on AWS
+
+  environment:
+    NODE_ENV: ${env:NODE_ENV}
+    REGION: ${env:AWS_REGION}
+    DATABASE_ENGINE: ${env:DATABASE_ENGINE}
+    DATABASE_NAME: ${env:DATABASE_NAME}
+    DATABASE_HOST: ${env:DATABASE_HOST}
+    DATABASE_USER: ${env:DATABASE_USER}
+    DATABASE_PASSWORD: ${env:DATABASE_PASSWORD}
+    DATABASE_PORT: ${env:DATABASE_PORT}
+    PASSWORD_SALT: ${env:PASSWORD_SALT}
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-scripts
+  - serverless-prune-plugin
+  - serverless-plugin-custom-roles
+
+# you can add packaging information here
+package:
+  patterns:
+    - "!.prettierrc.json"
+    - "!jest.config.js"
+    - "!.npmignore"
+    - "!.gitignore"
+    - "!README.md"
+    - "!eslintrc.json"
+    - "!src/__tests__/**"
+    - "!env.example"
+
+functions:
+  api:
+    handler: build/server.handler
+    events:
+      - http:
+          method: get
+          path: /healthcheck
+          cors: true
+
+      - http:
+          method: get
+          path: /api/samples
+          cors: true
+
+      - http:
+          method: post
+          path: /api/samples
+          cors: true
+
+      - http:
+          method: get
+          path: /api/samples/{sampleId}
+          cors: true
+
+      - http:
+          method: delete
+          path: /api/samples/{sampleId}
+          cors: true
+
+      - http:
+          method: patch
+          path: /api/samples/{sampleId}
+          cors: true
