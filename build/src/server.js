@@ -42,7 +42,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var serverless_http_1 = __importDefault(require("serverless-http"));
 var cors_1 = __importDefault(require("cors"));
-var sample_routes_1 = __importDefault(require("./routes/sample-routes"));
 var app = (0, express_1.default)();
 // map port
 var port = 3000;
@@ -57,7 +56,6 @@ app.use("/healthcheck", function (req, res) { return __awaiter(void 0, void 0, v
         return [2 /*return*/];
     });
 }); });
-app.use("/api/samples", sample_routes_1.default);
 app.listen(port, function () {
     console.log("[Server]: I am running at http://localhost:".concat(port));
 });
