@@ -3,9 +3,14 @@ import * as dotenv from "dotenv";
 
 dotenv.config({});
 
-const { DATABASE_ENGINE, DATABASE_HOST, DATABASE_PORT, DATABASE_USER, DATABASE_NAME, DATABASE_PASSWORD } = process.env;
+interface IKenxConfig {
+  [key: string]: Knex.Config;
+}
 
-const config: { [key: string]: Knex.Config } = {
+const { DATABASE_HOST, DATABASE_PORT, DATABASE_USER, DATABASE_NAME, DATABASE_PASSWORD } = process.env;
+const DATABASE_ENGINE = "pg";
+
+const configs: IKenxConfig = {
   test: {
     client: DATABASE_ENGINE,
     connection: {
@@ -62,4 +67,4 @@ const config: { [key: string]: Knex.Config } = {
   }
 };
 
-export default config;
+export default configs;

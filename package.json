@@ -9,8 +9,9 @@
     "test": "env-cmd --file .env.test jest --silent --runInBand --detectOpenHandles --passWithNoTests --forceExit",
     "deploy:dev": "env-cmd --file .env.development serverless deploy --aws-profile serverless-admin --stage development --region ap-southeast-1",
     "deploy:prod": "env-cmd --file .env.production serverless deploy --aws-profile serverless-admin --stage production --region ap-southeast-1",
-    "knex:migrate": "env-cmd --file .env.development npx knex migrate:latest",
-    "knex:migrate:rollback": "env-cmd --file .env.development npx knex migrate:rollback",
+    "knex": "./node_modules/.bin/knex --knexfile src/database/knexfile.ts",
+    "knex:migrate": "env-cmd --file .env.development npm run knex migrate:latest",
+    "knex:migrate:rollback": "env-cmd --file .env.development npm run knex migrate:rollback",
     "prettier-format": "prettier --config .prettierrc.json 'src/**/*.ts' --write",
     "lint": "npx eslint ."
   },
