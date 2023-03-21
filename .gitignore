@@ -142,6 +142,6 @@ dist
 .serverless
 
 ### Build ###
-./build
-./build/*
+build
+build/
 # End
