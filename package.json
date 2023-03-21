@@ -9,6 +9,8 @@
     "test": "env-cmd --file .env.test jest --silent --runInBand --detectOpenHandles --passWithNoTests --forceExit",
     "deploy:dev": "env-cmd --file .env.development serverless deploy --aws-profile serverless-admin --stage development --region ap-southeast-1",
     "deploy:prod": "env-cmd --file .env.production serverless deploy --aws-profile serverless-admin --stage production --region ap-southeast-1",
+    "knex:migrate": "env-cmd --file .env.development npx knex migrate:latest",
+    "knex:migrate:rollback": "env-cmd --file .env.development npx knex migrate:rollback",
     "prettier-format": "prettier --config .prettierrc.json 'src/**/*.ts' --write",
     "lint": "npx eslint ."
   },
@@ -42,6 +44,7 @@
     "serverless-plugin-custom-roles": "^3.1.1",
     "serverless-plugin-scripts": "^1.0.2",
     "serverless-prune-plugin": "^2.0.2",
+    "ts-node": "^10.9.1",
     "typescript": "^5.0.2"
   }
 }
