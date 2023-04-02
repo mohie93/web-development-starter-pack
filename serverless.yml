@@ -32,12 +32,12 @@ provider:
   environment:
     NODE_ENV: ${env:NODE_ENV}
     REGION: ${env:AWS_REGION}
+    DATABASE_ENGINE: ${env:DATABASE_ENGINE}
     DATABASE_NAME: ${env:DATABASE_NAME}
     DATABASE_HOST: ${env:DATABASE_HOST}
     DATABASE_USER: ${env:DATABASE_USER}
     DATABASE_PASSWORD: ${env:DATABASE_PASSWORD}
     DATABASE_PORT: ${env:DATABASE_PORT}
-    PASSWORD_SALT: ${env:PASSWORD_SALT}
 
 plugins:
   - serverless-offline
@@ -59,7 +59,7 @@ package:
 
 functions:
   api:
-    handler: build/server.handler
+    handler: build/src/server.handler
     events:
       - http:
           method: get
@@ -68,25 +68,25 @@ functions:
 
       - http:
           method: get
-          path: /api/samples
+          path: /api/users
           cors: true
 
       - http:
           method: post
-          path: /api/samples
+          path: /api/users
           cors: true
 
       - http:
           method: get
-          path: /api/samples/{sampleId}
+          path: /api/users/{userId}
           cors: true
 
       - http:
           method: delete
-          path: /api/samples/{sampleId}
+          path: /api/users/{userId}
           cors: true
 
       - http:
           method: patch
-          path: /api/samples/{sampleId}
+          path: /api/users/{userId}
           cors: true

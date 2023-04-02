@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   db:
     image:  postgres
@@ -9,8 +10,14 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
 
-  redis:
+  cache-redis:
     image: "redis:alpine"
     restart: always
     ports:
       - 6379:6379
+
+  queue-redis:
+    image: "redis:alpine"
+    restart: always
+    ports:
+      - 6380:6380

@@ -13,7 +13,10 @@
     "knex:migrate": "env-cmd --file .env.development npm run knex migrate:latest",
     "knex:migrate:rollback": "env-cmd --file .env.development npm run knex migrate:rollback",
     "prettier-format": "prettier --config .prettierrc.json 'src/**/*.ts' --write",
-    "lint": "npx eslint ."
+    "lint": "npx eslint .",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose stop"
   },
   "author": "https://github.com/mohie93",
   "license": "ISC",
