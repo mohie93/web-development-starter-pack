@@ -23,7 +23,7 @@ This Template is to speed up development for Serverless apps written by Typescri
 - Redis to handle cache and pub/sub management
 - Jest to handle testing
 - Nodemon to handle local development build and run
-- Serverless to handle build, deployment and run in AWS
+- Serverless to handle build, deployment and run on AWS
 
 ## How to run this app locally?
 
