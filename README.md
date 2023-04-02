@@ -37,7 +37,7 @@ This Template is to speed up development for Serverless apps written by Typescri
   - This command will build then export the TS app to build folder then run it from there
   - Changes will be caught and the app will be rebuilt and reloaded via `nodemon`
 
-## How to stop the app
+## How to stop the app?
 
 - Exit the app via (command + c for `mac` and control + c for `windows + linux`)
 - Run command `yarn docker:down` to shutdown docker images for DB + Redis
