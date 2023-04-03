@@ -1,10 +1,10 @@
-import { Request, Response, query } from "express";
+import { Request, Response } from "express";
 import { User } from "../models";
 import { IUser, IUserQueryOptions, IPaginateParams } from "../interfaces";
 
 export const create = async (request: Request, response: Response) => {
   const { email, name }: IUser = request.body;
-  const user = await User.create({ email, name });
+  const [user] = await User.create({ email, name });
   if (user) {
     return response.status(201).json({ user });
   }
@@ -24,9 +24,9 @@ export const getAll = async (request: Request, response: Response) => {
   }
 
   // Handle search operation
-  const { name, email }: IUserQueryOptions = request.query;
-  if (name || email) {
-    const users = await User.getBy({ name, email });
+  const query: IUserQueryOptions = request.query;
+  if (query) {
+    const users = await User.getBy(query);
     if (!users) {
       return response.status(404).json({ users: [] });
     }
@@ -69,11 +69,11 @@ export const destroy = async (request: Request, response: Response) => {
   }
 
   await User.delete(userId);
-  return response.status(204);
+  return response.status(204).json({ user: {} });
 };
 
 export const bulkCreate = () => async (request: Request, response: Response) => {
-  return response.status(200).json({ message: "operation completed" });
+  return response.status(201).json({ user: {} });
 };
 
 export const bulkDestroy = () => async (request: Request, response: Response) => {
@@ -81,8 +81,8 @@ export const bulkDestroy = () => async (request: Request, response: Response) =>
 
   if (Array.isArray(usersIds) && usersIds.length > 0) {
     await User.bulKDelete(usersIds);
-    return response.status(204);
+    return response.status(204).json({ user: {} });
   }
 
-  return response.status(200).json({ message: "operation completed" });
+  return response.status(204).json({ user: {} });
 };

@@ -2,7 +2,7 @@ import * as Joi from "joi";
 import { Request, Response, NextFunction } from "express";
 import { User } from "../models";
 
-const emailInUse = async (email: string) => await User.getBy({ email });
+const emailInUse = async (email: string) => Object.keys(await User.getBy({ email })).length > 0;
 
 const userSchema = Joi.object({
   name: Joi.string().required().min(6),
@@ -15,8 +15,8 @@ export const validateCreateRequest = async (request: Request, response: Response
       return response.status(422).json({ data: { message: "email in use" } });
     }
 
-    const { email, password } = request.body;
-    await userSchema.validateAsync({ email, password });
+    const { email, name } = request.body;
+    await userSchema.validateAsync({ email, name });
 
     next();
   } catch (error) {
@@ -26,8 +26,8 @@ export const validateCreateRequest = async (request: Request, response: Response
 
 export const validateUpdateRequest = async (request: Request, response: Response, next: NextFunction) => {
   try {
-    const { email, password } = request.body;
-    await userSchema.validateAsync({ email, password });
+    const { email, name } = request.body;
+    await userSchema.validateAsync({ email, name });
 
     next();
   } catch (error) {
@@ -38,8 +38,11 @@ export const validateUpdateRequest = async (request: Request, response: Response
 export const validateRequestWithId = async (request: Request, response: Response, next: NextFunction) => {
   try {
     const { userId } = request.params;
-    if (!userId) return response.status(422).json({ error: "user id params is required" });
+    if (!userId) {
+      return response.status(422).json({ error: "user id params is required" });
+    }
 
+    console.log("PASS");
     next();
   } catch (error) {
     return response.status(422).json({ error });

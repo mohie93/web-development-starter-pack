@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import knex from "../configs/knex";
 
 export const USERS_TABLE = "users";
@@ -6,27 +7,29 @@ import { IUser, IUserQueryOptions, IPaginateParams } from "../interfaces";
 
 export class User {
   static async create(user: IUser) {
-    return await knex(USERS_TABLE).insert(user).returning("*");
+    return knex(USERS_TABLE)
+      .insert({ id: uuidv4(), ...user })
+      .returning("*");
   }
 
   static async bulKCreate(users: Array<IUser>) {
-    return await knex.batchInsert(USERS_TABLE, users).returning("*");
+    return knex.batchInsert(USERS_TABLE, users).returning("*");
   }
 
   static async delete(userId: string) {
-    return await knex(USERS_TABLE).delete(userId);
+    return knex(USERS_TABLE).where({ id: userId }).del();
   }
 
   static async bulKDelete(usersIds: Array<string>) {
-    return await knex.raw(`DELETE FROM ${USERS_TABLE} WHERE id IN (${usersIds.join(", ")})`);
+    return knex.raw(`DELETE FROM ${USERS_TABLE} WHERE id IN (${usersIds.join(", ")})`);
   }
 
   static async getAll() {
-    return await knex(USERS_TABLE).select("*");
+    return knex(USERS_TABLE).select("*");
   }
 
   static async getAllPaginate(params: IPaginateParams) {
-    return await knex(USERS_TABLE).paginate(params);
+    return knex(USERS_TABLE).paginate(params);
   }
 
   static async getById(userId: string) {
