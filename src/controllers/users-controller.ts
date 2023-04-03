@@ -13,10 +13,10 @@ export const create = async (request: Request, response: Response) => {
 
 export const getAll = async (request: Request, response: Response) => {
   // handle pagination
-  const paginationOptions = request.query as unknown as IPaginateParams;
-  if (paginationOptions) {
+  const { perPage, currentPage } = request.query as unknown as IPaginateParams;
+  if (perPage && currentPage) {
     console.log("IN");
-    const users = await User.getAllPaginate(paginationOptions);
+    const users = await User.getAllPaginate({ perPage, currentPage });
     if (!users) {
       return response.status(404).json({ users: [], message: "operation completed" });
     }
@@ -25,9 +25,9 @@ export const getAll = async (request: Request, response: Response) => {
   }
 
   // Handle search operation
-  const searchOptions: IUserQueryOptions = request.query;
-  if (searchOptions) {
-    const users = await User.getBy(searchOptions);
+  const { name, email }: IUserQueryOptions = request.query;
+  if ({ name, email }) {
+    const users = await User.getBy({ name, email });
     if (!users) {
       return response.status(404).json({ users: [], message: "operation completed" });
     }
