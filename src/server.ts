@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import httpServerless from "serverless-http";
 import cors from "cors";
-
+import { routes } from "./routes";
 const app: Express = express();
 
 // map port
@@ -17,6 +17,8 @@ app.use(express.json());
 app.use("/healthcheck", async (req: Request, res: Response) => {
   res.status(200).json({ message: "Hello Server" });
 });
+
+app.use("/", routes);
 
 app.listen(port, () => {
   console.log(`[Server]: I am running at http://localhost:${port}`);

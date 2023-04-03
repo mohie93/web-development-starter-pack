@@ -38,6 +38,10 @@ provider:
     DATABASE_USER: ${env:DATABASE_USER}
     DATABASE_PASSWORD: ${env:DATABASE_PASSWORD}
     DATABASE_PORT: ${env:DATABASE_PORT}
+    CACHE_REDIS_URL: ${env:CACHE_REDIS_URL}
+    PUB_SUB_REDIS_URL: ${env:PUB_SUB_REDIS_URL}
+    TOKEN_PREFIX: ${env:TOKEN_PREFIX}
+    TOKEN_EXPIRES_IN: ${env:TOKEN_EXPIRES_IN}
 
 plugins:
   - serverless-offline
@@ -89,4 +93,14 @@ functions:
       - http:
           method: patch
           path: /api/users/{userId}
+          cors: true
+
+      - http:
+          method: post
+          path: /api/users/bulk
+          cors: true
+
+      - http:
+          method: delete
+          path: /api/users/bulk
           cors: true

@@ -7,8 +7,7 @@ interface IKenxConfig {
   [key: string]: Knex.Config;
 }
 
-const { DATABASE_HOST, DATABASE_PORT, DATABASE_USER, DATABASE_NAME, DATABASE_PASSWORD } = process.env;
-const DATABASE_ENGINE = "pg";
+const { DATABASE_ENGINE, DATABASE_HOST, DATABASE_PORT, DATABASE_USER, DATABASE_NAME, DATABASE_PASSWORD } = process.env;
 
 const configs: IKenxConfig = {
   test: {
