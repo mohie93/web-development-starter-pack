@@ -6,7 +6,7 @@ export const create = async (request: Request, response: Response) => {
   const { email, name }: IUser = request.body;
   const user = await User.create({ email, name });
   if (user) {
-    return response.status(201).json({ user, message: "operation completed" });
+    return response.status(201).json({ user });
   }
   return response.status(400).json({ user: {}, message: "bad request" });
 };
@@ -15,58 +15,57 @@ export const getAll = async (request: Request, response: Response) => {
   // handle pagination
   const { perPage, currentPage } = request.query as unknown as IPaginateParams;
   if (perPage && currentPage) {
-    console.log("IN");
-    const users = await User.getAllPaginate({ perPage, currentPage });
+    const { data: users, pagination } = await User.getAllPaginate({ perPage, currentPage });
     if (!users) {
-      return response.status(404).json({ users: [], message: "operation completed" });
+      return response.status(404).json({ users: [], pagination: {} });
     }
 
-    return response.status(200).json({ users, message: "operation completed" });
+    return response.status(200).json({ users, pagination });
   }
 
   // Handle search operation
   const { name, email }: IUserQueryOptions = request.query;
-  if ({ name, email }) {
+  if (name || email) {
     const users = await User.getBy({ name, email });
     if (!users) {
-      return response.status(404).json({ users: [], message: "operation completed" });
+      return response.status(404).json({ users: [] });
     }
 
-    return response.status(200).json({ users, message: "operation completed" });
+    return response.status(200).json({ users });
   }
 
   // handle get all ( not recommended )
   const users = await User.getAll();
-  return response.status(200).json({ users, message: "operation completed" });
+  return response.status(200).json({ users });
 };
 
 export const getById = async (request: Request, response: Response) => {
   const { userId } = request.params;
   if (!userId) {
-    return response.status(404).json({ user: {}, message: "operation completed" });
+    return response.status(404).json({ user: {} });
   }
 
   const user = await User.getById(userId);
-  return response.status(200).json({ user, message: "operation completed" });
+  return response.status(200).json({ user });
 };
 
 export const update = async (request: Request, response: Response) => {
   const { userId } = request.params;
   if (!userId) {
-    return response.status(404).json({ user: {}, message: "operation completed" });
+    return response.status(404).json({ user: {} });
   }
 
   const { name, email } = request.body;
   await User.update(userId, { name, email });
   const user = await User.getById(userId);
 
-  return response.status(200).json({ user, message: "operation completed" });
+  return response.status(200).json({ user });
 };
 
 export const destroy = async (request: Request, response: Response) => {
   const { userId } = request.params;
   if (!userId) {
-    return response.status(404).json({ user: {}, message: "operation completed" });
+    return response.status(404).json({ user: {} });
   }
 
   await User.delete(userId);

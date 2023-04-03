@@ -26,8 +26,7 @@ export class User {
   }
 
   static async getAllPaginate(params: IPaginateParams) {
-    console.log(params);
-    return await knex(USERS_TABLE).paginate(params).select("*");
+    return await knex(USERS_TABLE).paginate(params);
   }
 
   static async getById(userId: string) {
