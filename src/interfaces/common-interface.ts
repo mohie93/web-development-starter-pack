@@ -21,3 +21,14 @@ export interface ITokenInstance {
   token: string;
   expiresIn: number;
 }
+
+export interface IGeneratePresignedUrl {
+  region: string;
+  bucket: string;
+  key: string;
+}
+
+export interface IGetS3Object {
+  Key: string;
+  Bucket: string;
+}

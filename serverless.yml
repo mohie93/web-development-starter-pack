@@ -42,6 +42,7 @@ provider:
     PUB_SUB_REDIS_URL: ${env:PUB_SUB_REDIS_URL}
     TOKEN_PREFIX: ${env:TOKEN_PREFIX}
     TOKEN_EXPIRES_IN: ${env:TOKEN_EXPIRES_IN}
+    PRESIGNED_URL_EXPIRES_IN: ${env:PRESIGNED_URL_EXPIRES_IN}
 
 plugins:
   - serverless-offline
@@ -103,4 +104,9 @@ functions:
       - http:
           method: delete
           path: /api/users/bulk
+          cors: true
+
+      - http:
+          method: post
+          path: /api/services/generate-secure-url
           cors: true
