@@ -98,7 +98,7 @@ export const bulkCreate = async (request: Request, response: Response) => {
   return response.status(201).json({ users });
 };
 
-export const bulkDestroy = () => async (request: Request, response: Response) => {
+export const bulkDestroy = async (request: Request, response: Response) => {
   const { usersIds } = request.body;
 
   if (Array.isArray(usersIds) && usersIds.length > 0) {

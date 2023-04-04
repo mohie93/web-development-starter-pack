@@ -101,12 +101,12 @@ functions:
 
       - http:
           method: post
-          path: /api/users/bulk
+          path: /api/bulk/users
           cors: true
 
       - http:
           method: delete
-          path: /api/users/bulk
+          path: /api/bulk/users
           cors: true
 
       - http:

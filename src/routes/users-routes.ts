@@ -13,6 +13,6 @@ usersRoutes.patch("/api/users/:userId", validateUpdateRequest, usersController.u
 
 usersRoutes.delete("/api/users/:userId", validateRequestWithId, usersController.destroy);
 
-usersRoutes.post("/api/users/bulk", usersController.bulkCreate);
+usersRoutes.post("/api/bulk/users", usersController.bulkCreate);
 
-usersRoutes.delete("/api/users/bulk", usersController.bulkDestroy);
+usersRoutes.delete("/api/bulk/users", usersController.bulkDestroy);

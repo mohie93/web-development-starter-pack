@@ -42,7 +42,6 @@ export const validateRequestWithId = async (request: Request, response: Response
       return response.status(422).json({ error: "user id params is required" });
     }
 
-    console.log("PASS");
     next();
   } catch (error) {
     return response.status(422).json({ error });
