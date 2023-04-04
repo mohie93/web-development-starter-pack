@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 import { User } from "../models";
 import { IUser, IUserQueryOptions, IPaginateParams } from "../interfaces";
+import { getS3Object } from "../utils";
+
+import * as dotenv from "dotenv";
+
+dotenv.config({});
 
 export const create = async (request: Request, response: Response) => {
   const { email, name }: IUser = request.body;
@@ -72,8 +77,25 @@ export const destroy = async (request: Request, response: Response) => {
   return response.status(204).json({ user: {} });
 };
 
-export const bulkCreate = () => async (request: Request, response: Response) => {
-  return response.status(201).json({ user: {} });
+export const bulkCreate = async (request: Request, response: Response) => {
+  const { key } = request.body;
+
+  if (!key) {
+    return response.status(400).json({ error: "key param is required" });
+  }
+
+  const { data: usersRecords, errors } = await getS3Object({
+    Bucket: process.env.AWS_S3_BUCKET_NAME as string,
+    Key: key
+  });
+
+  if (Array.isArray(errors) && errors.length > 0) {
+    return response.status(400).json({ error: errors });
+  }
+
+  const users = await User.bulKCreate(usersRecords as IUser[]);
+
+  return response.status(201).json({ users });
 };
 
 export const bulkDestroy = () => async (request: Request, response: Response) => {

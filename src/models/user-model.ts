@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import knex from "../configs/knex";
 
 export const USERS_TABLE = "users";
@@ -7,9 +6,7 @@ import { IUser, IUserQueryOptions, IPaginateParams } from "../interfaces";
 
 export class User {
   static async create(user: IUser) {
-    return knex(USERS_TABLE)
-      .insert({ id: uuidv4(), ...user })
-      .returning("*");
+    return knex(USERS_TABLE).insert(user).returning("*");
   }
 
   static async bulKCreate(users: Array<IUser>) {

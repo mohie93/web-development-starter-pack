@@ -32,3 +32,8 @@ export interface IGetS3Object {
   Key: string;
   Bucket: string;
 }
+
+export interface IPapaParseResponse {
+  data?: Array<unknown>;
+  errors?: Array<unknown>;
+}
