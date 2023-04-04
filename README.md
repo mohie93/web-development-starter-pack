@@ -52,6 +52,7 @@ This Template is to speed up development for Serverless apps written by Typescri
 ## How to manage CSV upload?
 
 [Reference](https://docs.aws.amazon.com/AmazonS3/latest/userguide/example_s3_Scenario_PresignedUrl_section.html)
+
 - Create Presigned URL so FrontEnd can use to upload data to CSV
 - Use the Presigned URL to upload data to S3
 - Once upload completed, PS: `CSV Validation from FrontEnd`
