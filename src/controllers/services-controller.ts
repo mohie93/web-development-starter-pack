@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { createPresignedUrl } from "../utils";
 
 export const generateSecureUrl = async (request: Request, response: Response) => {
   const { bucket, key } = request.body;
@@ -12,7 +11,7 @@ export const generateSecureUrl = async (request: Request, response: Response) =>
     return response.status(400).json({ error: "key param is required" });
   }
 
-  const uploadUrl = await createPresignedUrl({ region: "", bucket, key });
+  const uploadUrl = "";
 
   if (uploadUrl) {
     return response.status(201).json({ uploadUrl });
