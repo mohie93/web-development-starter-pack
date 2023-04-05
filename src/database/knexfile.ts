@@ -18,6 +18,9 @@ const configs: IKenxConfig = {
       user: DATABASE_USER,
       password: DATABASE_PASSWORD,
       database: DATABASE_NAME
+    },
+    migrations: {
+      directory: "./migrations"
     }
   },
   development: {
@@ -28,6 +31,9 @@ const configs: IKenxConfig = {
       user: DATABASE_USER,
       password: DATABASE_PASSWORD,
       database: DATABASE_NAME
+    },
+    migrations: {
+      directory: "./migrations"
     }
   },
   staging: {
@@ -44,7 +50,7 @@ const configs: IKenxConfig = {
       max: 5
     },
     migrations: {
-      tableName: "knex_migrations"
+      directory: "./migrations"
     }
   },
   production: {
@@ -61,7 +67,7 @@ const configs: IKenxConfig = {
       max: 10
     },
     migrations: {
-      tableName: "knex_migrations"
+      directory: "./migrations"
     }
   }
 };

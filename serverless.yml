@@ -113,3 +113,8 @@ functions:
           method: post
           path: /api/services/generate-secure-url
           cors: true
+
+      - http:
+          method: post
+          path: /api/services/run-migrations
+          cors: true
