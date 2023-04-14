@@ -24,7 +24,7 @@ export class KnexModel {
   }
 
   static async getAllPaginate(table: string, params: IPaginateParams) {
-    return knex(table).paginate(params);
+    return knex(table).paginate({ ...params, isLengthAware: true });
   }
 
   static async getById(table: string, entityId: string) {
