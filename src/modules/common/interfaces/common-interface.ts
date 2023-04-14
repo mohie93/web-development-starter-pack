@@ -42,11 +42,11 @@ export interface IPapaParseResponse {
 
 export interface IApiHandlerResponse {
   statusCode: number;
-  message: string;
+  message?: string;
   data?: TModel | TModelId;
   error?: Error;
 }
 
 export interface IApiHandler {
-  (req: Request, res: Response): IApiHandlerResponse;
+  (req: Request, res: Response): Promise<IApiHandlerResponse>;
 }

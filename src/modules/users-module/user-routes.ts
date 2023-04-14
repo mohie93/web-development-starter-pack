@@ -1,19 +1,21 @@
 import { Router } from "express";
 import * as usersController from "./users-controller";
 import { validateCreateRequest, validateUpdateRequest, validateRequestWithId } from "./user-validator";
-import { protectedRoute, publicRoute } from "../common/middlewares";
+import { ApiHandler, apiAuthHandler as protectRoute } from "../common/middlewares";
 export const usersRoutes: Router = Router();
 
-usersRoutes.get("/api/users", publicRoute, usersController.getAll);
+// use apiAuthHandler to protect a route
 
-usersRoutes.post("/api/users", protectedRoute, validateCreateRequest, usersController.create);
+usersRoutes.get("/api/users", ApiHandler(usersController.getAll));
 
-usersRoutes.get("/api/users/:userId", publicRoute, validateRequestWithId, usersController.getById);
+usersRoutes.post("/api/users", protectRoute, validateCreateRequest, ApiHandler(usersController.create));
 
-usersRoutes.patch("/api/users/:userId", protectedRoute, validateUpdateRequest, usersController.update);
+usersRoutes.get("/api/users/:userId", protectRoute, validateRequestWithId, ApiHandler(usersController.getById));
 
-usersRoutes.delete("/api/users/:userId", protectedRoute, validateRequestWithId, usersController.destroy);
+usersRoutes.patch("/api/users/:userId", protectRoute, validateUpdateRequest, ApiHandler(usersController.update));
 
-usersRoutes.post("/api/bulk/users", protectedRoute, usersController.bulkCreate);
+usersRoutes.delete("/api/users/:userId", protectRoute, validateRequestWithId, ApiHandler(usersController.destroy));
 
-usersRoutes.delete("/api/bulk/users", protectedRoute, usersController.bulkDestroy);
+usersRoutes.post("/api/bulk/users", protectRoute, ApiHandler(usersController.bulkCreate));
+
+usersRoutes.delete("/api/bulk/users", protectRoute, ApiHandler(usersController.bulkDestroy));

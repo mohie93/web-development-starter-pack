@@ -1,2 +1,2 @@
-export * from "./protected-api.middleware";
-export * from "./public-api-middleware";
+export * from "./api-handler.middleware";
+export * from "./authentication-middleware";

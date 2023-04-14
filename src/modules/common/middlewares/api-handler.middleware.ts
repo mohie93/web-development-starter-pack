@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { IApiHandler } from "../interfaces";
 
-export const publicRoute = (api: IApiHandler) => async (request: Request, response: Response) => {
+export const ApiHandler = (api: IApiHandler) => async (request: Request, response: Response) => {
   try {
     const { statusCode, data, message, error } = await api(request, response);
     if (error) {
