@@ -1,18 +1,19 @@
 import { Router } from "express";
 import * as usersController from "./users-controller";
 import { validateCreateRequest, validateUpdateRequest, validateRequestWithId } from "./user-validator";
+import { protectedRoute, publicRoute } from "../common/middlewares";
 export const usersRoutes: Router = Router();
 
-usersRoutes.get("/api/users", usersController.getAll);
+usersRoutes.get("/api/users", publicRoute, usersController.getAll);
 
-usersRoutes.post("/api/users", validateCreateRequest, usersController.create);
+usersRoutes.post("/api/users", protectedRoute, validateCreateRequest, usersController.create);
 
-usersRoutes.get("/api/users/:userId", validateRequestWithId, usersController.getById);
+usersRoutes.get("/api/users/:userId", publicRoute, validateRequestWithId, usersController.getById);
 
-usersRoutes.patch("/api/users/:userId", validateUpdateRequest, usersController.update);
+usersRoutes.patch("/api/users/:userId", protectedRoute, validateUpdateRequest, usersController.update);
 
-usersRoutes.delete("/api/users/:userId", validateRequestWithId, usersController.destroy);
+usersRoutes.delete("/api/users/:userId", protectedRoute, validateRequestWithId, usersController.destroy);
 
-usersRoutes.post("/api/bulk/users", usersController.bulkCreate);
+usersRoutes.post("/api/bulk/users", protectedRoute, usersController.bulkCreate);
 
-usersRoutes.delete("/api/bulk/users", usersController.bulkDestroy);
+usersRoutes.delete("/api/bulk/users", protectedRoute, usersController.bulkDestroy);

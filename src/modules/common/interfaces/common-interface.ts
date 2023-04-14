@@ -1,3 +1,5 @@
+import { TModel, TModelId } from "../types";
+import { Request, Response } from "express";
 export interface IPaginateParams {
   perPage: number;
   currentPage: number;
@@ -36,4 +38,15 @@ export interface IGetS3Object {
 export interface IPapaParseResponse {
   data?: Array<unknown>;
   errors?: Array<unknown>;
+}
+
+export interface IApiHandlerResponse {
+  statusCode: number;
+  message: string;
+  data?: TModel | TModelId;
+  error?: Error;
+}
+
+export interface IApiHandler {
+  (req: Request, res: Response): IApiHandlerResponse;
 }
