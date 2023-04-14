@@ -4,9 +4,9 @@ import * as papaparse from "papaparse";
 
 export const generateSecureUrl = async ({ Bucket, Key }: IGetS3Object) => {
   try {
-    return await S3Client.getSignedUrlPromise("putObject", { Bucket, Key });
+    return { uploadUrl: await S3Client.getSignedUrlPromise("putObject", { Bucket, Key }), error: null };
   } catch (error) {
-    throw new Error(`Services:S3:generateSecureUrl:${error as unknown as string}`);
+    return { uploadUrl: null, error: `Services:S3:generateSecureUrl:${error as unknown as string}` };
   }
 };
 
