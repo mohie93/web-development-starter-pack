@@ -26,7 +26,7 @@ export const getAll = async (request: Request, _response: Response): Promise<IAp
       return { statusCode: 400, error: "users not found", message: "failed to fetch users" };
     }
 
-    return { statusCode: 200, data: { users, meta }, message: "fetched users successfully" };
+    return { statusCode: 200, data: users, meta, message: "fetched users successfully" };
   }
 
   // Handle search operation

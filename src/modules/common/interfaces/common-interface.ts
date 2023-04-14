@@ -43,8 +43,9 @@ export interface IPapaParseResponse {
 export interface IApiHandlerResponse {
   statusCode: number;
   message?: string;
-  data?: TModel | TModelId;
-  error?: Error | string;
+  meta?: object;
+  data?: TModel | TModelId | object;
+  error?: Error | string | object;
 }
 
 export interface IApiHandler {
