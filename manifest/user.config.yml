@@ -1,0 +1,47 @@
+user-api:
+  handler: build/src/server.handler
+  events:
+    - http:
+        method: get
+        path: /api/users
+        cors: true
+
+    - http:
+        method: post
+        path: /api/users
+        cors: true
+
+    - http:
+        method: get
+        path: /api/users/{userId}
+        cors: true
+
+    - http:
+        method: delete
+        path: /api/users/{userId}
+        cors: true
+
+    - http:
+        method: patch
+        path: /api/users/{userId}
+        cors: true
+
+    - http:
+        method: post
+        path: /api/bulk/users
+        cors: true
+
+    - http:
+        method: delete
+        path: /api/bulk/users
+        cors: true
+
+    - http:
+        method: post
+        path: /api/services/generate-secure-url
+        cors: true
+
+    - http:
+        method: post
+        path: /api/services/run-migrations
+        cors: true
