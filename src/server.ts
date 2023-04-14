@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import httpServerless from "serverless-http";
 import cors from "cors";
-import { routes } from "./routes";
+import { routes } from "./modules/common/routes.index";
 const app: Express = express();
 
 // map port
@@ -14,8 +14,8 @@ app.use(cors());
 app.use(express.json());
 
 // handle routes
-app.use("/healthcheck", async (req: Request, res: Response) => {
-  res.status(200).json({ message: "Hello Server" });
+app.use("/healthcheck", async (_request: Request, response: Response) => {
+  response.status(200).json({ message: "Hello Server" });
 });
 
 app.use("/", routes);

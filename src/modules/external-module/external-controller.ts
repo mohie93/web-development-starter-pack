@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { generateSecureUrl as generatePresignedUrl } from "../utils";
-import knex from "../configs/knex";
+import { generateSecureUrl as generatePresignedUrl } from "../common/utils";
+import knex from "../../configs/knex";
 import * as dotenv from "dotenv";
 import path from "path";
 
@@ -23,7 +23,7 @@ export const generateSecureUrl = async (request: Request, response: Response) =>
 };
 
 // We need this as serverless functions has no console to run migration throw cli
-export const runMigrations = async (request: Request, response: Response) => {
+export const runMigrations = async (_request: Request, response: Response) => {
   try {
     const options = { directory: path.join(process.cwd(), "src/database/migrations") };
     await knex.migrate.up(options);

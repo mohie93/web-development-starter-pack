@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { User } from "../models";
-import { IUser, IUserQueryOptions, IPaginateParams } from "../interfaces";
-import { getS3Object } from "../utils";
+import { User } from "./user-model";
+import { IUser, IUserQueryOptions, IPaginateParams } from "../common/interfaces";
+import { getS3Object } from "../common/utils/s3-client";
 
 import * as dotenv from "dotenv";
 

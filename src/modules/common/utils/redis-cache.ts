@@ -8,7 +8,7 @@ dotenv.config({});
 const tokensPrefixName = process.env.TOKEN_PREFIX;
 const tokenExpiresIn = process.env.TOKEN_EXPIRES_IN;
 
-import { redisCacheClient as redis } from "../configs/redis";
+import { redisCacheClient as redis } from "../../../configs/redis";
 import { IUser, ITokenInstance } from "../interfaces";
 const { promisify } = require("util");
 

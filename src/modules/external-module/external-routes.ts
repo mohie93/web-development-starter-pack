@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { servicesController } from "../controllers";
+import * as servicesController from "./external-controller";
 export const servicesRoutes: Router = Router();
 
 servicesRoutes.post("/api/services/generate-secure-url", servicesController.generateSecureUrl);

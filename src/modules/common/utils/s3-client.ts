@@ -1,4 +1,4 @@
-import { S3Client } from "../configs/aws-s3";
+import { S3Client } from "../../../configs/aws-s3";
 import { IGetS3Object, IPapaParseResponse } from "../interfaces";
 import * as papaparse from "papaparse";
 

@@ -1,6 +1,6 @@
 import * as Joi from "joi";
 import { Request, Response, NextFunction } from "express";
-import { User } from "../models";
+import { User } from "./user-model";
 
 const emailInUse = async (email: string) => Object.keys(await User.getBy({ email })).length > 0;
 

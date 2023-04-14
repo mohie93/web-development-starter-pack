@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { usersController } from "../controllers";
-import { validateCreateRequest, validateUpdateRequest, validateRequestWithId } from "../validators";
+import * as usersController from "./users-controller";
+import { validateCreateRequest, validateUpdateRequest, validateRequestWithId } from "./user-validator";
 export const usersRoutes: Router = Router();
 
 usersRoutes.get("/api/users", usersController.getAll);
