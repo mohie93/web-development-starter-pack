@@ -1,14 +1,18 @@
 import { Request, Response } from "express";
 import { IApiHandler } from "../interfaces";
 
+const statusCodeCheck = (statusCode: number) => statusCode >= 200 && statusCode <= 299;
+
 export const ApiHandler = (api: IApiHandler) => async (request: Request, response: Response) => {
   try {
     const { statusCode, data, message, error } = await api(request, response);
-    if (error) {
+    const isSuccessStatusCode = statusCodeCheck(statusCode);
+
+    if (error && !isSuccessStatusCode) {
       return response.status(statusCode).json({ error, message });
     }
 
-    if (data) {
+    if (data && isSuccessStatusCode) {
       return response.status(statusCode).json({ data, message });
     }
 

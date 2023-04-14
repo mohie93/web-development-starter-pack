@@ -44,7 +44,7 @@ export interface IApiHandlerResponse {
   statusCode: number;
   message?: string;
   data?: TModel | TModelId;
-  error?: Error;
+  error?: Error | string;
 }
 
 export interface IApiHandler {

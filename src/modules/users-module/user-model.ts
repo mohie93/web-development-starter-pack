@@ -16,30 +16,30 @@ export class User {
   }
 
   static async delete(entityId: string) {
-    return KnexModel.delete(this.setTable(), entityId);
+    return await KnexModel.delete(this.setTable(), entityId);
   }
 
   static async bulKDelete(data: Array<IUser>) {
-    return KnexModel.bulKDelete(this.setTable(), data);
+    return await KnexModel.bulKDelete(this.setTable(), data);
   }
 
   static async getAll() {
-    return KnexModel.getAll(this.setTable());
+    return await KnexModel.getAll(this.setTable());
   }
 
   static async getAllPaginate(params: IPaginateParams) {
-    return KnexModel.getAllPaginate(this.setTable(), params);
+    return await KnexModel.getAllPaginate(this.setTable(), params);
   }
 
   static async getById(entityId: string) {
-    return KnexModel.getById(this.setTable(), entityId);
+    return await KnexModel.getById(this.setTable(), entityId);
   }
 
   static async getBy(options: IUserQueryOptions) {
-    return KnexModel.getBy(this.setTable(), options);
+    return await KnexModel.getBy(this.setTable(), options);
   }
 
   static async update(entityId: string, entityModel: IUser) {
-    return KnexModel.update(this.setTable(), entityId, entityModel);
+    return await KnexModel.update(this.setTable(), entityId, entityModel);
   }
 }
